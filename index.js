@@ -1,4 +1,5 @@
 require('dotenv').config();
+const shellExec = require('shell-exec');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 6969;
@@ -16,7 +17,9 @@ app.get('/', (req, res) => {
 app.post('/', async (req, res) => {
   try {
     const projectName = req.body.project.name;
-    await shellExec(`./deploy_${projectName}`).then(console.log).catch(console.log);
+    console.log(req.body);
+    console.log(projectName);
+    await shellExec(`./deploy_${projectName}.sh`).then(console.log).catch(console.log);
     return res.json({
       message: 'Running update'
     })
