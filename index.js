@@ -14,11 +14,17 @@ app.get('/', (req, res) => {
   })
 })
 app.post('/', async (req, res) => {
-  const projectName = req.project.name;
-  await shellExec(`./deploy_${projectName}`).then(console.log).catch(console.log);
-  return res.json({
-    message: 'Running update'
-  })
+  try {
+    const projectName = req.body.project.name;
+    await shellExec(`./deploy_${projectName}`).then(console.log).catch(console.log);
+    return res.json({
+      message: 'Running update'
+    })
+  } catch (error) {
+    return res.status(500).json({
+      message: 'something-went-wrong'
+    })
+  }
 })
 
 app.listen(port, () => {
