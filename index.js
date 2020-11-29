@@ -5,7 +5,9 @@ const port = process.env.PORT || 6969;
 
 // webhook
 app.get('/', (req, res) => {
-
+  return res.json({
+    message: 'Im a auto deploy'
+  })
 })
 app.post('/', async (req, res) => {
   const projectName = req.project.name;
