@@ -4,9 +4,15 @@ const app = express();
 const port = process.env.PORT || 6969;
 
 // webhook
-app.post('/', (req, res) => {
+app.get('/', (req, res) => {
+
+})
+app.post('/', async (req, res) => {
   const projectName = req.project.name;
-  shellExec(`./deploy_${projectName}`).then(console.log).catch(console.log);
+  await shellExec(`./deploy_${projectName}`).then(console.log).catch(console.log);
+  return res.json({
+    message: 'Running update'
+  })
 })
 
 app.listen(port, () => {
